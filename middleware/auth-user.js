@@ -19,7 +19,8 @@ exports.authenticateUser = async (req, res, next) => {
                 console.log(`Authentication successful for username: ${user.firstName} ${user.lastName}`);
                 // Store the user on the Request object
                 req.currentUser = user;
-                // Store the user on the Response object for middleware 
+                // Store the user on the Response object for middleware.  
+                //Not sure if needed
                 res.locals.currentUser = user;
             } else {
                 message = `Authentication failure for username: ${user.firstName} ${user.lastName}`;

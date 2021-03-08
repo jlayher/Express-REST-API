@@ -1,6 +1,6 @@
 'use strict'
 const {Model, DataTypes} = require('sequelize');
-const bcrypt = require('bcryptjs');
+//const bcrypt = require('bcryptjs');
 
 module.exports = (sequelize) => {
     class User extends Model {}
@@ -23,6 +23,6 @@ module.exports = (sequelize) => {
         User.hasMany(models.Course, {
             foreignKey: 'userId'
         });
-    }
+    };
     return User;
-}
+};

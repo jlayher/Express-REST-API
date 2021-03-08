@@ -6,6 +6,11 @@ const morgan = require('morgan');
 // require sequelize
 const { sequelize } = require('./models');
 
+// require routes
+const courseRoutes = require('./routes/course');
+//const userRoutes = require('./routes/user');
+
+
 // variable to enable global error logging
 const enableGlobalErrorLogging = process.env.ENABLE_GLOBAL_ERROR_LOGGING === 'true';
 
@@ -14,6 +19,12 @@ const app = express();
 
 // setup morgan which gives us http request logging
 app.use(morgan('dev'));
+
+// parse body to JSON
+app.use(express.json());
+
+// Add Routes
+app.use('/api', courseRoutes);  //!!!! ADD userRoutes, after the api
 
 // Test Connection
 (async () => {
