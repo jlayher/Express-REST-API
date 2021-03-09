@@ -16,7 +16,7 @@ router.get('/courses', asyncHandler(async (req, res) => {
         include: [
             {
                 model: User,
-                //attributes: { exclude: ['password', 'createdAt', 'updatedAt']}
+                attributes: { exclude: ['password', 'createdAt', 'updatedAt']}
             }
         ]
     });
@@ -37,8 +37,8 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
 }));
 
 // POST (create) new course
-
 //add try catch block after adding sequelize validation errors
+// Add authentication middleware
 router.post('/courses', asyncHandler(async (req, res) => {
     const course = await Course.create(req.body);
     res.redirect(201, `/courses/${course.id}`);
@@ -46,6 +46,7 @@ router.post('/courses', asyncHandler(async (req, res) => {
 
 // PUT (update) a course
 //add try catch block after adding sequelize validation errors
+// Add authentication middleware
 router.put('/courses/:id', asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id);
     if (course) {
@@ -55,6 +56,7 @@ router.put('/courses/:id', asyncHandler(async (req, res) => {
 }));
 
 // DELETE a course
+// Add authentication middleware
 router.delete('/courses/:id', asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id);
     if (course) {

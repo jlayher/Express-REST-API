@@ -8,7 +8,7 @@ const { sequelize } = require('./models');
 
 // require routes
 const courseRoutes = require('./routes/course');
-//const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/user');
 
 
 // variable to enable global error logging
@@ -24,7 +24,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Add Routes
-app.use('/api', courseRoutes);  //!!!! ADD userRoutes, after the api
+app.use('/api', courseRoutes, userRoutes);  //!!!! ADD userRoutes, after the api
 
 // Test Connection
 (async () => {
