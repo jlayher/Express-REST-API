@@ -24,7 +24,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Add Routes
-app.use('/api', courseRoutes, userRoutes);  //!!!! ADD userRoutes, after the api
+app.use('/api', courseRoutes, userRoutes); 
 
 // Test Connection
 (async () => {

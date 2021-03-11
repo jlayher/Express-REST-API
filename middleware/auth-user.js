@@ -19,7 +19,7 @@ exports.authenticateUser = async (req, res, next) => {
                 console.log(`Authentication successful for username: ${user.firstName} ${user.lastName}`);
                 // Store the user on the Request object
                 req.currentUser = user;
-                // Store the user on the Response object for middleware.  
+ 
                 //Not sure if needed
                 res.locals.currentUser = user;
             } else {
@@ -33,7 +33,6 @@ exports.authenticateUser = async (req, res, next) => {
     }
 
     if (message) {
-        console.warn(message);
         res.status(401).json({ message: 'Access Denied '});
     } else {
         next();

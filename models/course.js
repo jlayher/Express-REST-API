@@ -1,6 +1,5 @@
 'use strict';
 const { Model, DataTypes } = require('sequelize');
-//const user = require('./user');
 
 module.exports = (sequelize) => {
     class Course extends Model {}
@@ -10,10 +9,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 notNull: {
-                    msg: 'A course title must be added'
+                    msg: 'A course title must be added.'
                 },
                 notEmpty: {
-                    msg: 'Course title cannot be empty'
+                    msg: 'Course title cannot be empty.'
                 }
             }
         },

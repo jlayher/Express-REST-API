@@ -1,7 +1,8 @@
 'use strict'
 const {Model, DataTypes} = require('sequelize');
-//const bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
+// Create and Export User Model and Validate firstName, lastName, emailAddress, and password
 module.exports = (sequelize) => {
     class User extends Model {}
     User.init({
@@ -10,10 +11,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 notNull: {
-                    msg: 'A First Name must be added'
+                    msg: 'A First-Name must be added'
                 },
                 notEmpty: {
-                    msg: 'First Name cannot be empty'
+                    msg: 'First-Name cannot be empty'
                 }
             }
         },
@@ -22,10 +23,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             validate: {
                 notNull: {
-                    msg: 'A First Name must be added'
+                    msg: 'A Last-Name must be added'
                 },
                 notEmpty: {
-                    msg: 'First Name cannot be empty'
+                    msg: 'Last-Name cannot be empty'
                 }
             }
         },
@@ -33,7 +34,7 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: {
-                msg: "This Email Address Already Exists"
+                msg: 'This Email Address Already Exists'
             },
             validate: {
                 notNull: {
@@ -43,7 +44,7 @@ module.exports = (sequelize) => {
                     msg: 'Email cannot be empty'
                 },
                 isEmail: {
-                    msg: "Email Address Is Not Valid"
+                    msg: 'Your Email Address Is Not Valid'
                 }
             }
         },
@@ -56,15 +57,16 @@ module.exports = (sequelize) => {
             },
             validate: {
                 notNull: {
-                    msg: 'A First Name must be added'
+                    msg: 'A Password is Required'
                 },
                 notEmpty: {
-                    msg: 'First Name cannot be empty'
+                    msg: 'Please Enter a Password'
                 }
             }
         }
     }, { sequelize });
 
+    // Set one-to-many association
     User.associate = (models) => {
         User.hasMany(models.Course, {
             foreignKey: 'userId'
