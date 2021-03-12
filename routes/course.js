@@ -11,7 +11,6 @@ const { authenticateUser } = require('../middleware/auth-user');
 const router = express.Router();
 
 // GET all courses
-//Not sure why I need to include two attribute sections for this to work correctly.  The created and updated details appear in Postman, either under the user section, or as properties of the course object itself
 router.get('/courses', asyncHandler(async (req, res) => {
     const courses = await Course.findAll({
         include: [{
@@ -30,7 +29,6 @@ router.get('/courses', asyncHandler(async (req, res) => {
     res.json(courses);
 }));
 
-// Added a second attribute section because unwanted data was being displayed in this route when only using the include block
 // GET specific course
 router.get('/courses/:id', asyncHandler(async (req, res) => {
     const course = await Course.findByPk(req.params.id, {
