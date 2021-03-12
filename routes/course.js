@@ -57,7 +57,6 @@ router.get('/courses/:id', asyncHandler(async (req, res) => {
 router.post('/courses', authenticateUser, asyncHandler(async (req, res) => {
     try {
         const course = await Course.create(req.body);
-        //res.redirect(201, `/courses/${course.id}`);
         res.status(201).location(`/courses/${course.id}`).end();
     } catch (err) {
         console.error(err);
@@ -74,12 +73,15 @@ router.post('/courses', authenticateUser, asyncHandler(async (req, res) => {
 router.put('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
     try {
         const course = await Course.findByPk(req.params.id);
-        if (course) {
-            await course.update(req.body);
-            res.status(204).end();
-        } else {
-            res.status(403).json( {'message': 'You do not have authorization to make changes to this course'})
-        }
+        const currentUser = req.currentUser;
+        //if (course) {
+            if (course.userId === currentUser.id) {
+                await course.update(req.body);
+                res.status(204).end();
+            } else {
+                res.status(403).json( {'message': 'You do not have authorization to make changes to this course'})
+            }
+        //}
     } catch (error) {
         console.error(error);
         if (error.name === 'SequelizeValidationError') {
@@ -95,11 +97,10 @@ router.put('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
 router.delete('/courses/:id', authenticateUser, asyncHandler(async (req, res) => {
     try {
         const course = await Course.findByPk(req.params.id);
-        const {currentUser} = res.locals;
+        const currentUser = req.currentUser;
         if (course) {
             if(course.userId === currentUser.id) {
                 await course.destroy(req.body);
-                //test to see if this resolves the hanging issue
                 res.status(204).end();
             } else {
                 res.status(403).json({ 'message': 'You do not have authorization to delete this course'});
